@@ -237,7 +237,10 @@
                     <!-- Existing Owner Actions -->
                     <template v-else-if="enableTransferOwnerActions(item)">
                       <v-btn
-                        v-if="!isRemovedHomeOwner(item) && !isChangedOwner(item) && !isDisabledForSoGChanges(item)"
+                        v-if="!isRemovedHomeOwner(item) &&
+                              !isChangedOwner(item) &&
+                              !isDisabledForSoGChanges(item) &&
+                              !isHomeTenancyTypeNa"
                         text
                         color="primary"
                         class="mr-n4"
@@ -253,7 +256,7 @@
                         data-test-id="table-delete-btn"
                       >
                         <v-icon small>mdi-delete</v-icon>
-                        <span>Delete</span>
+                        <span>Delete {{ getHomeTenancyType() }}</span>
                         <v-divider v-if="enableTransferOwnerMenuActions(item)" class="ma-0 pl-3" vertical />
                       </v-btn>
 
@@ -513,6 +516,7 @@ export default defineComponent({
       hasMinimumGroups,
       editHomeOwner,
       getGroupById,
+      getHomeTenancyType,
       undoGroupChanges,
       getGroupNumberById,
       getHomeTenancyType,
@@ -561,6 +565,7 @@ export default defineComponent({
       ownerToDecease: null as MhrRegistrationHomeOwnerIF,
       isEditingMode: computed((): boolean => localState.currentlyEditingHomeOwnerId >= 0),
       isAddingMode: computed((): boolean => props.isAdding),
+      isHomeTenancyTypeNa: computed((): boolean => getHomeTenancyType() === HomeTenancyTypes.NA),
       showTableError: computed((): boolean => {
         // For certain Transfers, we only need to check for global changes and do not show table error in other cases
         if (isTransferToExecutorProbateWill.value ||
@@ -882,6 +887,7 @@ export default defineComponent({
       disableGroupHeader,
       isGroupWithNoOwners,
       getGroupNumberById,
+      getHomeTenancyType,
       getMhrTransferHomeOwnerGroups,
       getTransferOrRegistrationHomeOwners,
       getTransferOrRegistrationHomeOwnerGroups,
