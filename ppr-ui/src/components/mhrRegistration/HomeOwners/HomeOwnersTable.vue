@@ -240,7 +240,7 @@
                         v-if="!isRemovedHomeOwner(item) &&
                               !isChangedOwner(item) &&
                               !isDisabledForSoGChanges(item) &&
-                              !isHomeTenancyTypeNa"
+                              isPartyTypeNotEAT(item)"
                         text
                         color="primary"
                         class="mr-n4"
@@ -256,7 +256,7 @@
                         data-test-id="table-delete-btn"
                       >
                         <v-icon small>mdi-delete</v-icon>
-                        <span>Delete {{ getHomeTenancyType() }}</span>
+                        <span>Delete</span>
                         <v-divider v-if="enableTransferOwnerMenuActions(item)" class="ma-0 pl-3" vertical />
                       </v-btn>
 
@@ -516,7 +516,6 @@ export default defineComponent({
       hasMinimumGroups,
       editHomeOwner,
       getGroupById,
-      getHomeTenancyType,
       undoGroupChanges,
       getGroupNumberById,
       getHomeTenancyType,
@@ -565,7 +564,6 @@ export default defineComponent({
       ownerToDecease: null as MhrRegistrationHomeOwnerIF,
       isEditingMode: computed((): boolean => localState.currentlyEditingHomeOwnerId >= 0),
       isAddingMode: computed((): boolean => props.isAdding),
-      isHomeTenancyTypeNa: computed((): boolean => getHomeTenancyType() === HomeTenancyTypes.NA),
       showTableError: computed((): boolean => {
         // For certain Transfers, we only need to check for global changes and do not show table error in other cases
         if (isTransferToExecutorProbateWill.value ||
