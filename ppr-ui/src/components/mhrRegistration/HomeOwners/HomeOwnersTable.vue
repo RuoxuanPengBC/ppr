@@ -240,7 +240,7 @@
                         v-if="!isRemovedHomeOwner(item) &&
                               !isChangedOwner(item) &&
                               !isDisabledForSoGChanges(item) &&
-                              isPartyTypeNotEAT(item)"
+                              !(!isPartyTypeNotEAT(item) && isTransferToSurvivingJointTenant)"
                         text
                         color="primary"
                         class="mr-n4"
